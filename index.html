@@ -306,8 +306,164 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>传送门：<a href="http://fzcoj.hustoj.com/contest.php?cid=1043" target="_blank" rel="noopener">http://fzcoj.hustoj.com/contest.php?cid=1043</a></p>
-          
+        <p>传送门：http://fzcoj.hustoj.com/contest.php?cid=1043</p>
+<p>&lt;!--more--&gt;</p>
+<h2>A.四边形</h2>
+<h3>题目描述</h3>
+<p>老陈最近遇到了一个问题，他想计算一个四边形的面积。但是由于他遇到的四边形都是奇形怪状的所以他不想动手算了。你能否写一个程序帮他完成计算？</p>
+<h3>输入</h3>
+<p>输入共四行，每行代表四边形的其中一个顶点的坐标。</p>
+<h3>输出</h3>
+<p>输出一个数代表这四个点围成的四边形的面积，保留三位小数。</p>
+<h3>样例输入</h3>
+<blockquote>
+<p>2 2</p>
+<p>2 -2</p>
+<p>-2 2</p>
+<p>-2 -2</p>
+</blockquote>
+<h3>样例输出</h3>
+<blockquote>
+<p>16.000</p>
+</blockquote>
+<h3>思路</h3>
+<p>利用割补法进行计算。</p>
+<h3>参考代码</h3>
+<p>略</p>
+<h2>B.悬崖</h2>
+<h3>题目描述</h3>
+<p>老陈某天夜里，做了一场噩梦。他梦见他受到了无数个无形的力的作用。而他的前方Y米处是一处悬崖。此时他会受到这些力作用M秒，在这段时间内老陈无法做出任何动作，这些力也不会发生改变。</p>
+<p>他想知道，M秒过后，他会不会掉下悬崖。</p>
+<h3>输入</h3>
+<p>第一行包含三个正整数N、M、Y，分别表示老陈受到的力的个数、受到这些力的时间、老陈离悬崖的距离。（1≤N≤105，0≤M≤105，1≤Y≤109）</p>
+<p>接下来N行，每行输入一个力的信息。这些力的表示均使用向量表示。老陈位于原点，悬崖在老陈的y轴方向。</p>
+<h3>输出</h3>
+<p>若老陈在M秒后会掉下悬崖，输出“Die”；否则输出“Save”。</p>
+<h3>样例输入</h3>
+<blockquote>
+<p>3 8 5</p>
+<p>1 1 0</p>
+<p>-1 0 0</p>
+<p>0 -1 0</p>
+</blockquote>
+<h3>样例输出</h3>
+<blockquote>
+<p>Save</p>
+</blockquote>
+<h3>思路</h3>
+<p>本题的题意求N个力的和。</p>
+<p>假设有两个力$F_1=(x_1,y_1,z_1);,;F_2=(x_2,y_2,z_2)$。我们知道，合力$F=(x_1+x_2,y_1+y_2,z_1+z_2)$。</p>
+<p>那么，题目中所给的N个力，我们只需要将他们的对应坐标加起来就可以得到合力的坐标。</p>
+<p>然后，题目给出了力作用的时间m。那么，合力乘以m就是老陈在m秒后所处的位置。</p>
+<p>题目给定悬崖所在的位置是在y轴上，那我们只需要判断最终老陈的y坐标是否超过了悬崖的位置即可。</p>
+<p>注意数据范围，$10^5$个力施加了$10^5$秒。即使所有的力都是$F=(1,1,1)$,最终得到的坐标也是$10^{10}$级别的！</p>
+<p>使用long long!</p>
+<h3>参考代码</h3>
+<p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, total_y = <span class="number">0</span>;</span><br><span class="line">    ll k;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m &gt;&gt; k;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> x, y, z;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; x &gt;&gt; y &gt;&gt; z;</span><br><span class="line">        total_y += y;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (k - (ll)m*total_y &lt;= <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Die"</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Save"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>C.反模幂运算</h2>
+<h3>题目描述</h3>
+<p>我们知道，计算$2^n ;mod ;m$是一个著名的问题。快速解决这个问题的算法是RSA加密算法的核心之一。</p>
+<p>现在，我们想解决与问题“相反”的另一个问题：计算</p>
+<p>$$m; mod ;2^n.$$</p>
+<p>请你完成这个问题。</p>
+<h3>输入描述</h3>
+<p>仅包含两个正整数n、m。（1≤n,m≤$10^8$）</p>
+<h3>输出描述</h3>
+<p>输出一个整数，代表$m; mod ;2^n$的值。</p>
+<h3>样例输入</h3>
+<blockquote>
+<p>4 42</p>
+</blockquote>
+<h3>样例输出</h3>
+<blockquote>
+<p>10</p>
+</blockquote>
+<h3>思路</h3>
+<p>注意数据范围！n≤$10^8$！</p>
+<p>你能计算$2^{100000000}$吗？</p>
+<p>当然不可能！</p>
+<p>那么怎么办呢？</p>
+<p>回到数据范围，m的范围也是最大为$10^8$。</p>
+<p>计算器算一下，我们知道m不会大于$2^{27}$。那么，如果n大于27的话，很明显，最终式子的最终结果是m。</p>
+<p>如果n不大于27，我们就老老实实模一下就行了。（反正不会超过int范围）</p>
+<h3>参考代码</h3>
+<p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);</span><br><span class="line">    <span class="keyword">if</span> (n &gt; <span class="number">27</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, m);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d"</span>, m % (<span class="keyword">int</span>)<span class="built_in">pow</span>((<span class="keyword">double</span>)<span class="number">2</span>, (<span class="keyword">double</span>)n));</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>D.闯关</h2>
+<h3>题目描述</h3>
+<p>玩家A和玩家B现在正在魔塔中闯关。这座魔塔共有X层，要想打败这一层的领主才能前往下一关。</p>
+<p>玩家A和玩家B很菜，他们自身的攻击力连第一层的领主都打不过。所以他们想到了另外一种方法：利用领主害怕的符咒来杀死领主。玩家A和玩家B的背包中都有一定数量的符咒并且玩家A拥有一个可以使用Y次的符咒转换器，它能够将任意一张符咒转换为另一张符咒。</p>
+<p>现在他们准备出发了，请你判断下他们能否成功通关。</p>
+<h3>输入描述</h3>
+<p>第一行包含两个正整数X、Y，分别代表魔塔的层数和符咒转换器的使用次数。（1≤x,y≤$10^5$）</p>
+<p>第二行代表玩家A中拥有的符咒的情况，其中第一个数代表玩家A拥有的符咒的数量。其后有个正整数，代表第i个符咒能作用于第i层的领主上。</p>
+<p>第三行代表玩家B中拥有的符咒的情况，形式与第二行相同。</p>
+<h3>输出描述</h3>
+<p>如果他们能够通关，输出“Yes”，然后空一个空格后输出使用符咒转换器的次数；如果他们无法通关，输出“No”。</p>
+<h3>样例输入</h3>
+<blockquote>
+<p>5 3</p>
+<p>4 1 2 2 2</p>
+<p>2 4 5</p>
+</blockquote>
+<h3>样例输出</h3>
+<blockquote>
+<p>Yes 1</p>
+</blockquote>
+<h3>思路</h3>
+<p>我们考虑一下使用符咒转换器的条件：</p>
+<ol>
+<li>
+<p>缺少打败某层的领主的符咒</p>
+</li>
+<li>
+<p>有某个领主的符咒超过一张</p>
+</li>
+</ol>
+<p>那么，我们统计一下一共有几种符咒，并统计其中可以拿来转换的符咒的数量。</p>
+<p>如果转换之后能补齐，那么就是Yes，而使用的次数就是之前缺失的符咒的张数。</p>
+<h3>参考代码</h3>
+<p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">int</span>&gt;fu;</span><br><span class="line">    <span class="keyword">int</span> n, m;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n &gt;&gt; m;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> t;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; t;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; t; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> x;</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; x;</span><br><span class="line">            <span class="keyword">if</span> (!fu.insert(x).second)</span><br><span class="line">                k++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    k = min(k, m);</span><br><span class="line">    <span class="keyword">if</span> (fu.size() + k &gt;= n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Yes "</span> &lt;&lt; n - fu.size();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"No"</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2>E.最小数 &amp; 最大数</h2>
+<h3>题目描述</h3>
+<p>小陈正在和他的朋友玩猜数游戏，小陈写了一个数字后告诉朋友这个数的位数和这个数的所有的位的和。</p>
+<p>请你计算一下他的朋友可以猜的数的范围。</p>
+<h3>输入</h3>
+<p>只包含两个数a、b，分别代表小陈所写的数的位数和这个数的所有的位的和。（1≤a≤100,0≤b≤900）</p>
+<h3>输出</h3>
+<p>输出两个正整数，分别代表他的朋友所猜的数的最小值和最大值。</p>
+<p>如果不存在符合情况的数，输出“-1 -1”。</p>
+<h3>样例输入</h3>
+<blockquote>
+<p>2 15</p>
+</blockquote>
+<h3>样例输出</h3>
+<blockquote>
+<p>69 96</p>
+</blockquote>
+<h3>思路</h3>
+<p>这题比较恶心。</p>
+<p>细节多。</p>
+<p>首先，当总和大于位数*9或者位数大于1但是和为0的时候，就只能输出&quot;-1 -1&quot;了。（注意当位数为1时存在总和为0的情况）</p>
+<p>然后，确保存在之后，我们确定最大最小值即可。</p>
+<p>最大值比较简单，把所有能组成的9放在前面，最后剩下多少就接在9的后面，如果现在位数还不够的话后面补0就行了。</p>
+<p>例如：</p>
+<blockquote>
+<p>14 92</p>
+</blockquote>
+<p>我们能弄出10个9，最后剩下一个2。然后现在总共11位，还差3位，那就最后补3个0就是了。即99999999992000。</p>
+<p>最小值比较麻烦，我们首先要跟最大值反着来。</p>
+<p>把所有的9放在最后面，最后剩下多少就放在最前面。如果位数不够，那么现在最前面的那个数要减一，然后前面补1000……直到位数足够。</p>
+<p>还是上面的那个例子：</p>
+<p>我们将10个9放在最后，剩下2放在最前面。</p>
+<p>即 29999999999。</p>
+<p>但是现在只有11位，那么最前面的那一位就要减一。</p>
+<p>即 19999999999。</p>
+<p>然后前面用1000……接上直到位数足够。</p>
+<p>即 10019999999999。</p>
+<p>按照上面的思路写就完成了。</p>
+<h3>参考代码</h3>
+<p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> len, sum;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; len &gt;&gt; sum;</span><br><span class="line">    <span class="keyword">int</span> max[<span class="number">110</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> min[<span class="number">110</span>] = &#123; <span class="number">0</span> &#125;;</span><br><span class="line">    <span class="keyword">int</span> min_pos = len<span class="number">-1</span>, max_pos = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> ((sum == <span class="number">0</span>&amp;&amp;len&gt;<span class="number">1</span>)||sum&gt;len*<span class="number">9</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"-1 -1"</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i * <span class="number">9</span> &lt;= sum; i++)</span><br><span class="line">        max[max_pos++] = <span class="number">9</span>;</span><br><span class="line">    i--;</span><br><span class="line">    <span class="keyword">if</span> (sum - i * <span class="number">9</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        max[max_pos++] = sum - i * <span class="number">9</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i * <span class="number">9</span> &lt;= sum; i++)</span><br><span class="line">        min[min_pos--] = <span class="number">9</span>;</span><br><span class="line">    i--;</span><br><span class="line">    <span class="keyword">if</span> (sum - i * <span class="number">9</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        min[min_pos] = sum - i * <span class="number">9</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (min[min_pos] == <span class="number">0</span>&amp;&amp;min_pos&lt;len<span class="number">-1</span>)</span><br><span class="line">        min_pos++;</span><br><span class="line">    <span class="keyword">if</span> (min[min_pos] &gt; <span class="number">0</span>&amp;&amp;min[<span class="number">0</span>]==<span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        min[min_pos]--;</span><br><span class="line">        min[<span class="number">0</span>]++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; min[i];</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; <span class="string">' '</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++)</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; max[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
       
     </div>
     
@@ -316,10 +472,6 @@
       
 
       
-      
-        <p class="article-more-link">
-          <a   href="/2018/10/07/2018六月月赛题解/#more">查看更多 >></a>
-        </p>
       
       <div class="clearfix"></div>
     </div>
